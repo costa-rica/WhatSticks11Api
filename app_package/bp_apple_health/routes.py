@@ -25,7 +25,7 @@ from app_package._common.utilities import custom_logger, wrap_up_session, \
 
 logger_bp_apple_health = custom_logger('bp_apple_health.log')
 bp_apple_health = Blueprint('bp_apple_health', __name__)
-logger_bp_apple_health.info(f'- WhatSticks10 API users Bluprints initialized')
+logger_bp_apple_health.info(f'- WhatSticks11 API users Bluprints initialized')
 
 
 @bp_apple_health.before_request

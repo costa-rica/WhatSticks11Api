@@ -18,7 +18,7 @@ from app_package._common.utilities import custom_logger, wrap_up_session
 
 logger_bp_oura = custom_logger('bp_oura.log')
 bp_oura = Blueprint('bp_oura', __name__)
-logger_bp_oura.info(f'- WhatSticks10 API users Bluprints initialized')
+logger_bp_oura.info(f'- WhatSticks11 API users Bluprints initialized')
 
 
 @bp_oura.before_request

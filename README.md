@@ -5,7 +5,7 @@
 
 ## Description
 What Sticks 11 API is the main conduit for the What Sticks iOS application to communicate with the What Sticks Database.
-This project picks up from the WhatSticks10Api migrate_to_mysql_04 branch.
+This project picks up from the WhatSticks11Api migrate_to_mysql_04 branch.
 
 ## Features
 - Users can register
@@ -13,7 +13,7 @@ This project picks up from the WhatSticks10Api migrate_to_mysql_04 branch.
 
 
 ## Contributing
-We welcome contributions to the WhatSticks10 API project.
+We welcome contributions to the WhatSticks11 API project.
 
 For any queries or suggestions, please contact us at nrodrig1@gmail.com.
 
@@ -21,7 +21,7 @@ For any queries or suggestions, please contact us at nrodrig1@gmail.com.
 ## Documentation
 
 ### ACTIVATE_TECHNICAL_DIFFICULTIES_ALERT
-ACTIVATE_TECHNICAL_DIFFICULTIES_ALERT is a variable in ws_config/config.py. If it is set to `True`, it will stop WhatSticks10Api from logging in and registering users. Furthermore, it provides alert_title and alert_message sent by the WS10API that the WSiOS app will display to the user conveying the technical difficulty. The mechanisim this works through is a function in WS10API/utilsDecorators.py.
+ACTIVATE_TECHNICAL_DIFFICULTIES_ALERT is a variable in ws_config/config.py. If it is set to `True`, it will stop WhatSticks11Api from logging in and registering users. Furthermore, it provides alert_title and alert_message sent by the WS11Api that the WSiOS app will display to the user conveying the technical difficulty. The mechanisim this works through is a function in WS11Api/utilsDecorators.py.
 
 If it is set to anything except for `True`, it will allow the normal logging in and registering function.
 

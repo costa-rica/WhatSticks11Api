@@ -13,13 +13,13 @@ if not os.path.exists(os.path.join(os.environ.get('API_ROOT'),'logs')):
 
 logger_init = custom_logger_init()
 
-logger_init.info(f'--- Starting WhatSticks10 API ---')
+logger_init.info(f'--- Starting WhatSticks11 API ---')
 logger_init.info(f'ACTIVATE_TECHNICAL_DIFFICULTIES_ALERT: {config.ACTIVATE_TECHNICAL_DIFFICULTIES_ALERT}')
 
 mail = Mail()
 
 def create_app(config_for_flask = config):
-    logger_init.info("- WhatSticks10Api/app_package/__init__.py create_app() -")
+    logger_init.info("- WhatSticks11Api/app_package/__init__.py create_app() -")
     app = Flask(__name__)
     app.teardown_appcontext(teardown_appcontext)
     app.config.from_object(config_for_flask)

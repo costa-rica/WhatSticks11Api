@@ -64,7 +64,7 @@ def custom_logger(logger_filename):
     full_log_path = os.path.join(path_to_logs, logger_filename)
 
     # Formatter setup
-    app_name = "WS10Api"
+    app_name = "WS11Api"
     # formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
     formatter = logging.Formatter(f'%(asctime)s - {app_name} - %(name)s - [%(filename)s:%(lineno)d] - %(message)s')
 
@@ -90,7 +90,7 @@ def custom_logger(logger_filename):
 def custom_logger_init():
     logging.Formatter.converter = timetz
 
-    app_name = "WS10Api"
+    app_name = "WS11Api"
     # formatter = logging.Formatter('%(asctime)s:%(name)s:%(message)s')
     formatter = logging.Formatter(f'%(asctime)s - {app_name} - %(name)s - [%(filename)s:%(lineno)d] - %(message)s')
 
