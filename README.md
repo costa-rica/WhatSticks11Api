@@ -5,7 +5,7 @@
 
 ## Description
 What Sticks 11 API is the main conduit for the What Sticks iOS application to communicate with the What Sticks Database.
-
+This project picks up from the WhatSticks10Api migrate_to_mysql_04 branch.
 
 ## Features
 - Users can register
