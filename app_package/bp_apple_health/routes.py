@@ -96,6 +96,11 @@ def receive_apple_qty_cat_data(current_user):
 
     # last chunk
     last_chunk = request_json.get("last_chunk") == "True"
+    if last_chunk == "True":
+        with open(request_json, 'w') as file:
+            json.dump(os.path.join(current_app.config.get('APPLE_HEALTH_DIR'),"app_cat_qty-test.json"), file, indent=4)
+
+
     # filename example: AppleHealthQuantityCategory-user_id1-20231229-1612.json
     time_stamp_str_for_json_file_name = request_json.get("dateStringTimeStamp")
     apple_health_data_json = request_json.get("arryAppleHealthQuantityCategory")
@@ -133,6 +138,7 @@ def receive_apple_qty_cat_data(current_user):
         response_dict = {"chunk_response":"keep going"}
         return jsonify(response_dict)
     else:
+        logger_bp_apple_health.info(f"- ****** Sent Final Chunk ****** -")
         logger_bp_apple_health.info(f"- successfully saved apple health data in: {json_data_path_and_name} -")
         user_id_string = str(current_user.id)
         logger_bp_apple_health.info(f"- user_id string passed to subprocess: {user_id_string} -")
@@ -140,7 +146,10 @@ def receive_apple_qty_cat_data(current_user):
         # Filename and path to subproces (WSAS)
         # path_sub = os.path.join(current_app.config.get('APPLE_SERVICE_ROOT'), 'apple_health_service.py')
         path_sub = os.path.join(current_app.config.get('APPLE_SERVICE_11_ROOT'), 'send_job.py')
-
+        logger_bp_apple_health.info(f"- ******************************  -")
+        logger_bp_apple_health.info(f"- Path to APPLE_SERVICE_11_ROOT .send_job.py  -")
+        logger_bp_apple_health.info(f"- path_sub: {path_sub}   -")
+        logger_bp_apple_health.info(f"- ******************************  -")
         if count_of_entries_sent_by_ios == 0:
             logger_bp_apple_health.info(f"- Not processing count_of_entries_sent_by_ios == 0: -")
             response_dict = {
