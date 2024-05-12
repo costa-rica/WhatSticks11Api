@@ -14,7 +14,7 @@ import socket
 # from app_package.utilsDecorators import token_required, response_dict_tech_difficulties_alert
 from app_package._common.token_decorator import token_required
 from app_package.bp_users.utils import send_confirm_email, send_reset_email, delete_user_from_table, \
-    delete_user_data_files, get_apple_health_count_date
+    delete_user_data_files, get_apple_health_count_date, delete_user_daily_csv
 from sqlalchemy import desc
 from ws_utilities import convert_lat_lon_to_timezone_string, convert_lat_lon_to_city_country, \
     find_user_location, add_user_loc_day_process
@@ -326,6 +326,8 @@ def delete_user(current_user):
 
     # delete: dataframe pickle, data source json, and dashboard json
     delete_user_data_files(current_user)
+    # delete user daily CSV files that display on the website user home page:
+    delete_user_daily_csv(current_user)
 
     # delete user
     delete_user_from_users_table = delete_user_from_table(current_user, Users)

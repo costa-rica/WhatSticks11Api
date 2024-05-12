@@ -82,6 +82,15 @@ def delete_user_data_files(current_user):
         os.remove(json_data_path_and_name)
 
 
+def delete_user_daily_csv(current_user):
+    # user_files/daily_csv/
+    # format: user_0001_df_daily_sleep_heart_rate.csv
+    if os.path.exists(current_app.config.get('DAILY_CSV')):
+        for filename in os.listdir(current_app.config.get('DAILY_CSV')):
+            if f"user_{current_user.id:04}_df" in filename:
+                os.remove(os.path.join(current_app.config.get('DAILY_CSV'), filename))
+
+
 def delete_user_from_table(current_user, table):
     db_session = DatabaseSession()
     count_deleted_rows = 0

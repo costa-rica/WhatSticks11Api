@@ -18,7 +18,8 @@ from sqlalchemy import and_
 from sqlalchemy.exc import IntegrityError
 from app_package.bp_apple_health.utils import add_apple_health_to_database, \
     send_confirm_email, apple_health_qty_cat_json_filename, apple_health_workouts_json_filename
-from app_package.bp_users.utils import delete_user_data_files, delete_user_from_table
+from app_package.bp_users.utils import delete_user_data_files, delete_user_from_table, \
+    delete_user_daily_csv
 import subprocess
 from app_package._common.utilities import custom_logger, wrap_up_session, \
     save_request_data
@@ -58,6 +59,9 @@ def delete_apple_health_for_user(current_user):
 
     delete_apple_health = delete_user_from_table(current_user, AppleHealthQuantityCategory)
     delete_apple_health = delete_user_from_table(current_user, AppleHealthWorkout)
+    # delete user daily CSV files that display on the website user home page:
+    delete_user_daily_csv(current_user)
+
     if delete_apple_health[1]:
         response_message = f"failed to delete, error {delete_apple_health[1]} "
         return make_response(jsonify({"error":response_message}), 500)
