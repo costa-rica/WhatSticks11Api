@@ -168,7 +168,7 @@ def receive_apple_qty_cat_data(current_user):
         else:
             logger_bp_apple_health.info(f"- processing via WSAS -")
             response_dict = {
-                'message': "No data sent",
+                'message': "WSAPI sending call to processing data via WSAS",
                 'alertMessage':f"Apple Health Data contains {count_of_entries_sent_by_ios:,} records. \nYou will receive an email when all your data is added to the database."
             }
 
