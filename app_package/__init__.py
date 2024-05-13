@@ -1,7 +1,7 @@
 from flask import Flask
 from ._common.config import config
 from ._common.utilities import login_manager, custom_logger_init, \
-    teardown_appcontext
+    before_request_custom, teardown_request
 import os
 from pytz import timezone
 from datetime import datetime
@@ -21,7 +21,9 @@ mail = Mail()
 def create_app(config_for_flask = config):
     logger_init.info("- WhatSticks11Api/app_package/__init__.py create_app() -")
     app = Flask(__name__)
-    app.teardown_appcontext(teardown_appcontext)
+    # app.teardown_appcontext(teardown_appcontext)
+    app.before_request(before_request_custom)
+    app.teardown_request(teardown_request)
     app.config.from_object(config_for_flask)
     mail.init_app(app)
 

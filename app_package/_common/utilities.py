@@ -23,31 +23,33 @@ def load_user(user_id):
     return user
 
 
-def teardown_appcontext(exception=None):
-    logger_teardown = custom_logger('teardown_context.log')
-    logger_teardown.info("- in teardown_appcontext")
-    db_session = g.pop('db_session', None)
-    session_id = id(db_session)
-    if db_session is not None:
-        try:
-            logger_teardown.info(f"Attempting to close session at {datetime.utcnow().isoformat()}")
-            # logger_teardown.info(f"Request endpoint: {request.endpoint}, Method: {request.method}")
+# def teardown_appcontext(exception=None):
+#     logger_teardown = custom_logger('teardown_context.log')
+#     logger_teardown.info("- in teardown_appcontext")
+#     db_session = g.pop('db_session', None)
+#     session_id = id(db_session)
+#     if db_session is not None:
+#         try:
+#             logger_teardown.info(f"Attempting to close session at {datetime.utcnow().isoformat()}")
+#             # logger_teardown.info(f"Request endpoint: {request.endpoint}, Method: {request.method}")
             
-            if exception is None:
-                db_session.commit()
-                logger_teardown.info("Session committed successfully.")
-            else:
-                db_session.rollback()
-                logger_teardown.info("Session rollback due to exception.")
+#             if exception is None:
+#                 db_session.commit()
+#                 logger_teardown.info("Session committed successfully.")
+#             else:
+#                 db_session.rollback()
+#                 logger_teardown.info("Session rollback due to exception.")
                 
-        except Exception as e:
-            logger_teardown.info(f"Session ID: {session_id} - Error during teardown: {type(e).__name__}: {e}")
-            logger_teardown.info("Exception stack trace:", e.__traceback__)
+#         except Exception as e:
+#             logger_teardown.info(f"Session ID: {session_id} - Error during teardown: {type(e).__name__}: {e}")
+#             logger_teardown.info("Exception stack trace:", e.__traceback__)
             
-        finally:
-            db_session.close()
-            logger_teardown.info("Session closed.")
-            logger_teardown.info("---- End teardown_context ---")
+#         finally:
+#             db_session.close()
+#             logger_teardown.info("Session closed.")
+#             logger_teardown.info("---- End teardown_context ---")
+
+
 
 
 def custom_logger(logger_filename):
@@ -175,3 +177,34 @@ def response_dict_tech_difficulties_alert(response_dict):
             "Thank you for your patience and support. "
         )
     return response_dict
+
+
+logger_request = custom_logger("logger_request.log")
+
+def teardown_request(exception=None):
+    logger_request.info("- *********************** -")
+    logger_request.info("- in teardown_request -")
+    logger_request.info("- in teardown_request -")
+    logger_request.info("- *********************** -")
+
+    db_session = g.pop('db_session', None)
+    if db_session is not None:
+        logger_request.info(f"- db_session ID: {id(db_session)} ")
+        if exception is None:
+            db_session.commit()
+            logger_request.info(f"- teardown_request commit -")
+        else:
+            db_session.rollback()
+            logger_request.info(f"- teardown_request rollback -")
+        logger_request.info("- db_session.close() -")
+        
+        db_session.close()
+
+
+
+def before_request_custom():
+    logger_request.info("- in before_request_custom -")
+    # Each request will have access to a database session
+    g.db_session = DatabaseSession()
+
+
