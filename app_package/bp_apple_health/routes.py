@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request, jsonify, make_response, current_app, g
-from ws_models import DatabaseSession, Users, AppleHealthQuantityCategory, AppleHealthWorkout
+from ws_models import DatabaseSession, Users, AppleHealthQuantityCategory, AppleHealthWorkout, \
+    UserLocationDay
 from werkzeug.security import generate_password_hash, check_password_hash #password hashing
 import bcrypt
 from datetime import datetime
@@ -59,6 +60,7 @@ def delete_apple_health_for_user(current_user):
 
     delete_apple_health = delete_user_from_table(current_user, AppleHealthQuantityCategory)
     delete_apple_health = delete_user_from_table(current_user, AppleHealthWorkout)
+    delete_user_location_day = delete_user_from_table(current_user, UserLocationDay)
     # delete user daily CSV files that display on the website user home page:
     delete_user_daily_csv(current_user)
 
