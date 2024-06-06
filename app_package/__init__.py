@@ -31,6 +31,7 @@ def create_app(config_for_flask = config):
     ## create folders for PROJECT_RESOURCES
     create_folder(config_for_flask.PROJECT_RESOURCES)
     create_folder(config_for_flask.DIR_LOGS)
+    create_folder(os.path.join(config_for_flask.API_ROOT,"logs"))
     # database helper files
     create_folder(config_for_flask.DATABASE_HELPER_FILES)
     create_folder(config_for_flask.APPLE_HEALTH_DIR)

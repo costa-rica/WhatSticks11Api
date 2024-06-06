@@ -8,10 +8,16 @@ from datetime import datetime
 from flask import g
 import json
 from flask import current_app, request
+from .config import config
 
 login_manager= LoginManager()
 login_manager.login_view = 'bp_users.login'
 login_manager.login_message_category = 'info'
+
+# necessary if logger is created in this file such as for logger_request
+if not os.path.exists(os.path.join(config.API_ROOT,"logs")):
+    os.makedirs(os.path.join(config.API_ROOT,"logs"))
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -21,35 +27,6 @@ def load_user(user_id):
     user = g.db_session.query(Users).filter_by(id = user_id).first()
     print("* created a g.db_session *")
     return user
-
-
-# def teardown_appcontext(exception=None):
-#     logger_teardown = custom_logger('teardown_context.log')
-#     logger_teardown.info("- in teardown_appcontext")
-#     db_session = g.pop('db_session', None)
-#     session_id = id(db_session)
-#     if db_session is not None:
-#         try:
-#             logger_teardown.info(f"Attempting to close session at {datetime.utcnow().isoformat()}")
-#             # logger_teardown.info(f"Request endpoint: {request.endpoint}, Method: {request.method}")
-            
-#             if exception is None:
-#                 db_session.commit()
-#                 logger_teardown.info("Session committed successfully.")
-#             else:
-#                 db_session.rollback()
-#                 logger_teardown.info("Session rollback due to exception.")
-                
-#         except Exception as e:
-#             logger_teardown.info(f"Session ID: {session_id} - Error during teardown: {type(e).__name__}: {e}")
-#             logger_teardown.info("Exception stack trace:", e.__traceback__)
-            
-#         finally:
-#             db_session.close()
-#             logger_teardown.info("Session closed.")
-#             logger_teardown.info("---- End teardown_context ---")
-
-
 
 
 def custom_logger(logger_filename):
